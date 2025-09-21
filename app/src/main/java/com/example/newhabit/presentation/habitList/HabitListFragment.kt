@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newhabit.R
 import com.example.newhabit.data.repository.HabitProgressRepositoryImpl
@@ -61,8 +62,9 @@ class HabitListFragment : Fragment() {
             adapter.submitList(it.habitItemList)
         }
 
+        // Set Navigation Fab
         binding.fab.setOnClickListener {
-            Toast.makeText(requireContext(), "Add novo hábito", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_habitList_to_habitForm)
         }
     }
 
