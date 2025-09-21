@@ -58,7 +58,7 @@ class HabitListFragment : Fragment() {
         // Observer UI State for changes.
         viewModel.uiState.observe(viewLifecycleOwner) {
             // Submit the new list to the adapter
-            adapter.habits = it.habitItemList
+            adapter.submitList(it.habitItemList)
         }
 
         binding.fab.setOnClickListener {

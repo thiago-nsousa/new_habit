@@ -14,24 +14,24 @@ object HabitRepositoryImpl : HabitRepository {
         HabitEntity(
             id = UUID.randomUUID().toString(),
             title = "Read the book",
-            daysOfWeek = listOf(2, 4, 6)
+            daysOfWeek = listOf(1, 4, 6)
         ),
         HabitEntity(
             id = UUID.randomUUID().toString(),
             title = "Walk the dog",
-            daysOfWeek = listOf(2, 4, 6)
+            daysOfWeek = listOf(1, 4, 6)
         ),
         HabitEntity(
             id = UUID.randomUUID().toString(),
             title = "Drink water",
-            daysOfWeek = listOf(2, 4, 6)
+            daysOfWeek = listOf(1, 4, 6)
         ),
     )
 
     override suspend fun fetchAll() = habitListCache.map{ it.toDomain() }
 
     override suspend fun fetch(dayOfWeek: Int): List<Habit> {
-        Log.d(TAG, "Fetch Habit")
+        Log.d(TAG, "Fetch Habit by day of week $dayOfWeek")
         return habitListCache.map{ it.toDomain() }.filter {
             it.daysOfWeek.contains(dayOfWeek)
         }

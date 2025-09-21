@@ -3,8 +3,8 @@ package com.example.newhabit.presentation.habitList
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newhabit.databinding.HabitItemBinding
 import com.example.newhabit.domain.model.Habit
@@ -13,16 +13,11 @@ import com.example.newhabit.domain.model.Habit
  * RecyclerView adapter for displaying a list of Habits.
  *
  * The UI is based on the [HabitItemBinding].
- * We use the [HabitItem] as a model for the binding.
+ * We use the [Habit] as a model for the binding.
  */
 class HabitListAdapter(
     private val viewModel: HabitListViewModel
-) : RecyclerView.Adapter<HabitListAdapter.HabitViewHolder>() {
-
-    private val asyncListDiffer: AsyncListDiffer<Habit> = AsyncListDiffer(this, DiffCallback)
-    var habits: List<Habit>
-        get() = asyncListDiffer.currentList
-        set(value) = asyncListDiffer.submitList(value)
+) : ListAdapter<Habit, HabitListAdapter.HabitViewHolder>(DiffCallback) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitViewHolder {
@@ -32,10 +27,8 @@ class HabitListAdapter(
     }
 
     override fun onBindViewHolder(holder: HabitViewHolder, position: Int) {
-        holder.bind(habits[position])
+        holder.bind(getItem(position))
     }
-
-    override fun getItemCount(): Int = habits.size
 
     class HabitViewHolder(
         private val binding: HabitItemBinding,
