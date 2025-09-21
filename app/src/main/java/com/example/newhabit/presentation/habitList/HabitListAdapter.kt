@@ -40,7 +40,7 @@ class HabitListAdapter(
             binding.completeCheckBox.isChecked = habit.isCompleted
 
             binding.completeCheckBox.setOnClickListener {
-                Toast.makeText(binding.root.context, "Hábito concluído!", Toast.LENGTH_SHORT).show()
+                viewModel.toggleHabitCompleted(habit.id)
             }
         }
     }

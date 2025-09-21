@@ -33,6 +33,13 @@ class HabitListViewModel(
         }
     }
 
+    fun toggleHabitCompleted(habitId: String) {
+        viewModelScope.launch {
+            toggleProgressUseCase(habitId)
+            refreshHabitList()
+        }
+    }
+
     private suspend fun refreshHabitList() {
         _uiState.postValue(HabitListState(getHabitsForTodayUseCase()))
     }
