@@ -1,15 +1,15 @@
 package com.example.newhabit.data.local.entity
 
-import com.example.newhabit.domain.model.Habit
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.example.newhabit.data.local.utils.DaysOfWeekConverter
 
+@Entity(tableName = "habit")
 data class HabitEntity(
-    val id: String,
-    val title: String,
-    val daysOfWeek: List<Int>,
-)
-
-fun HabitEntity.toDomain() = Habit(
-    id = id,
-    title = title,
-    daysOfWeek = daysOfWeek,
+    @PrimaryKey val uuid: String,
+    @ColumnInfo(name = "title") val title: String,
+    @TypeConverters(DaysOfWeekConverter::class)
+    @ColumnInfo(name = "daysOfWeek") val daysOfWeek: List<Int>
 )

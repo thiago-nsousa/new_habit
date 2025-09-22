@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newhabit.R
+import com.example.newhabit.data.local.AppDatabase
 import com.example.newhabit.data.repository.HabitProgressRepositoryImpl
 import com.example.newhabit.data.repository.HabitRepositoryImpl
 import com.example.newhabit.databinding.FragmentHabitListBinding
@@ -23,8 +24,9 @@ class HabitListFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var adapter: HabitListAdapter
     private val viewModel: HabitListViewModel by activityViewModels {
-        val habitRepository = HabitRepositoryImpl
-        val progressRepository = HabitProgressRepositoryImpl
+        val db = AppDatabase.getInstance(requireContext())
+        val habitRepository = HabitRepositoryImpl(db)
+        val progressRepository = HabitProgressRepositoryImpl(db)
         val getHabitsForTodayUseCase = GetHabitsForTodayUseCaseImpl(
             progressRepository = progressRepository,
             habitRepository = habitRepository,

@@ -1,16 +1,12 @@
 package com.example.newhabit.data.local.entity
 
-import com.example.newhabit.domain.model.Habit
-import com.example.newhabit.domain.model.HabitProgress
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+@Entity(tableName = "progress")
 data class HabitProgressEntity(
-    val id: String,
-    val habitId: String,
-    val dayOfWeek: Int,
-)
-
-fun HabitProgressEntity.toDomain() = HabitProgress(
-    id = id,
-    habitId = habitId,
-    dayOfWeek = dayOfWeek,
+    @PrimaryKey val uuid: String,
+    @ColumnInfo(name = "habitId") val habitId: String,
+    @ColumnInfo(name = "completedAt") val completedAt: Long,
 )

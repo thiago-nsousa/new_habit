@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.newhabit.data.local.AppDatabase
 import com.example.newhabit.data.repository.HabitRepositoryImpl
 import com.example.newhabit.databinding.FragmentHabitFormBinding
 import com.google.android.material.chip.Chip
@@ -21,7 +22,8 @@ class HabitFormFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: HabitFormViewModel by viewModels {
-        HabitFormViewModel.Factory(HabitRepositoryImpl)
+        val db = AppDatabase.getInstance(requireContext())
+        HabitFormViewModel.Factory(HabitRepositoryImpl(db))
     }
 
     override fun onCreateView(

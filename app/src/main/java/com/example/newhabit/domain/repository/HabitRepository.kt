@@ -4,7 +4,7 @@ import com.example.newhabit.domain.model.Habit
 
 interface HabitRepository {
 
-    suspend fun fetchAll(): List<Habit>
+//    suspend fun fetchAll(): List<Habit>
 
     suspend fun fetch(dayOfWeek: Int): List<Habit>
 
