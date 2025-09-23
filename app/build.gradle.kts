@@ -48,14 +48,20 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.benchmark.common)
+    implementation(libs.androidx.preference)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    // Lifecycle components
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.9.3")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.3")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    // Navigation components
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.0")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.0")
+    // Room components
     implementation ("androidx.room:room-ktx:2.5.0")
     ksp ("androidx.room:room-compiler:2.5.0")
+    // DataStore components
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 }
