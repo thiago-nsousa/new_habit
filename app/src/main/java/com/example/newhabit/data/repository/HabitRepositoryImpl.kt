@@ -1,12 +1,12 @@
 package com.example.newhabit.data.repository
 
 import android.util.Log
-import com.example.newhabit.data.local.entity.HabitEntity
+import com.example.newhabit.data.local.database.entity.HabitEntity
 import com.example.newhabit.domain.model.Habit
 import com.example.newhabit.domain.repository.HabitRepository
 import java.util.UUID
 import kotlin.collections.map
-import com.example.newhabit.data.local.AppDatabase
+import com.example.newhabit.data.local.database.AppDatabase
 
 class HabitRepositoryImpl(appDatabase: AppDatabase) : HabitRepository {
 

@@ -1,9 +1,9 @@
-package com.example.newhabit.data.local.dao
+package com.example.newhabit.data.local.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.newhabit.data.local.entity.HabitEntity
+import com.example.newhabit.data.local.database.entity.HabitEntity
 
 @Dao
 interface HabitDao {

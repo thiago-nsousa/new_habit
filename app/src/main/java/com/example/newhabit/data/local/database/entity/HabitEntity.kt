@@ -1,4 +1,4 @@
-package com.example.newhabit.data.local.entity
+package com.example.newhabit.data.local.database.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

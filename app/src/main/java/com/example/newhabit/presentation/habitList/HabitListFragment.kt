@@ -11,7 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newhabit.R
-import com.example.newhabit.data.local.AppDatabase
+import com.example.newhabit.data.local.database.AppDatabase
 import com.example.newhabit.data.repository.HabitProgressRepositoryImpl
 import com.example.newhabit.data.repository.HabitRepositoryImpl
 import com.example.newhabit.databinding.FragmentHabitListBinding

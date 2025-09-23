@@ -2,9 +2,8 @@ package com.example.newhabit.data.repository
 
 import android.icu.util.Calendar
 import android.util.Log
-import com.example.newhabit.data.local.AppDatabase
-import com.example.newhabit.data.local.entity.HabitProgressEntity
-import com.example.newhabit.data.remote.dto.toDomain
+import com.example.newhabit.data.local.database.AppDatabase
+import com.example.newhabit.data.local.database.entity.HabitProgressEntity
 import com.example.newhabit.domain.model.HabitProgress
 import com.example.newhabit.domain.repository.HabitProgressRepository
 import kotlinx.coroutines.Dispatchers
