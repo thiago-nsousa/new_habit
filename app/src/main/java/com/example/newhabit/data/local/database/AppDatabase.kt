@@ -1,16 +1,15 @@
-package com.example.newhabit.data.local
+package com.example.newhabit.data.local.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.newhabit.data.local.dao.HabitDao
-import com.example.newhabit.data.local.dao.HabitProgressDao
-import com.example.newhabit.data.local.entity.HabitEntity
-import com.example.newhabit.data.local.entity.HabitProgressEntity
+import com.example.newhabit.data.local.database.dao.HabitDao
+import com.example.newhabit.data.local.database.dao.HabitProgressDao
+import com.example.newhabit.data.local.database.entity.HabitEntity
+import com.example.newhabit.data.local.database.entity.HabitProgressEntity
 import com.example.newhabit.data.local.utils.DaysOfWeekConverter
-
 
 @Database(entities = [HabitEntity::class, HabitProgressEntity::class], version = 1, exportSchema = false)
 @TypeConverters(DaysOfWeekConverter::class)
