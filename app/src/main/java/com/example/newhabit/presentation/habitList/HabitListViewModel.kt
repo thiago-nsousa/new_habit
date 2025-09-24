@@ -5,11 +5,14 @@ import com.example.newhabit.domain.usecase.GetHabitsForTodayUseCase
 import com.example.newhabit.domain.usecase.ToggleProgressUseCase
 import androidx.lifecycle.*
 import com.example.newhabit.domain.model.Habit
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 data class HabitListState(val habitItemList: List<Habit>)
 
-class HabitListViewModel(
+@HiltViewModel
+class HabitListViewModel @Inject constructor(
     private val getHabitsForTodayUseCase: GetHabitsForTodayUseCase,
     private val toggleProgressUseCase: ToggleProgressUseCase,
 ) : ViewModel() {
@@ -42,18 +45,5 @@ class HabitListViewModel(
 
     private suspend fun refreshHabitList() {
         _uiState.postValue(HabitListState(getHabitsForTodayUseCase()))
-    }
-
-
-    // ViewModel Factory needed to provide Repository injection to ViewModel.
-    @Suppress("UNCHECKED_CAST")
-    class Factory(
-        private val toggleProgressUseCase: ToggleProgressUseCase,
-        private val getHabitsForTodayUseCase: GetHabitsForTodayUseCase,
-    ) : ViewModelProvider.Factory {
-
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return HabitListViewModel(getHabitsForTodayUseCase, toggleProgressUseCase) as T
-        }
     }
 }

@@ -7,10 +7,11 @@ import com.example.newhabit.domain.repository.HabitRepository
 import java.util.UUID
 import kotlin.collections.map
 import com.example.newhabit.data.local.database.AppDatabase
+import com.example.newhabit.data.local.database.dao.HabitDao
+import javax.inject.Inject
 
-class HabitRepositoryImpl(appDatabase: AppDatabase) : HabitRepository {
+class HabitRepositoryImpl @Inject constructor(private val dao: HabitDao) : HabitRepository {
 
-    private val dao = appDatabase.habitDao()
 
     override suspend fun fetch(dayOfWeek: Int): List<Habit> {
         Log.d(TAG, "Fetching habits for day of week $dayOfWeek")

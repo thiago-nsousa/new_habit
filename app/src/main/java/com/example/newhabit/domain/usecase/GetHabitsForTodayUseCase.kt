@@ -5,12 +5,13 @@ import android.util.Log
 import com.example.newhabit.domain.model.Habit
 import com.example.newhabit.domain.repository.HabitProgressRepository
 import com.example.newhabit.domain.repository.HabitRepository
+import javax.inject.Inject
 
 interface GetHabitsForTodayUseCase {
     suspend operator fun invoke(): List<Habit>
 }
 
-class GetHabitsForTodayUseCaseImpl(
+class GetHabitsForTodayUseCaseImpl @Inject constructor(
     private val progressRepository: HabitProgressRepository,
     private val habitRepository: HabitRepository,
 ) : GetHabitsForTodayUseCase {

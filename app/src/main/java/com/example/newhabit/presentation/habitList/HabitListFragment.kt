@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newhabit.R
@@ -18,27 +19,18 @@ import com.example.newhabit.databinding.FragmentHabitListBinding
 import com.example.newhabit.domain.usecase.GetHabitsForTodayUseCaseImpl
 import com.example.newhabit.domain.usecase.ToggleProgressUseCaseImpl
 import com.google.android.material.divider.MaterialDividerItemDecoration
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HabitListFragment : Fragment() {
     private var _binding: FragmentHabitListBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: HabitListAdapter
-    private val viewModel: HabitListViewModel by activityViewModels {
-        val db = AppDatabase.getInstance(requireContext())
-        val habitRepository = HabitRepositoryImpl(db)
-        val progressRepository = HabitProgressRepositoryImpl(db)
-        val getHabitsForTodayUseCase = GetHabitsForTodayUseCaseImpl(
-            progressRepository = progressRepository,
-            habitRepository = habitRepository,
-        )
-        HabitListViewModel.Factory(
-            getHabitsForTodayUseCase = getHabitsForTodayUseCase,
-            toggleProgressUseCase = ToggleProgressUseCaseImpl(progressRepository)
-        )
-    }
+    private lateinit var viewModel: HabitListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this)[HabitListViewModel::class.java]
         adapter = HabitListAdapter(viewModel)
     }
 

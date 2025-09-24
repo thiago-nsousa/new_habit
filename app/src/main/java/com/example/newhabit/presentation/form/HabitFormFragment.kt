@@ -6,24 +6,30 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.newhabit.data.local.database.AppDatabase
 import com.example.newhabit.data.repository.HabitRepositoryImpl
 import com.example.newhabit.databinding.FragmentHabitFormBinding
 import com.google.android.material.chip.Chip
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * A [Fragment] that displays a list of habits.
  */
+@AndroidEntryPoint
 class HabitFormFragment : Fragment() {
 
     private var _binding: FragmentHabitFormBinding? = null
 
     private val binding get() = _binding!!
 
-    private val viewModel: HabitFormViewModel by viewModels {
-        val db = AppDatabase.getInstance(requireContext())
-        HabitFormViewModel.Factory(HabitRepositoryImpl(db))
+    private lateinit var viewModel: HabitFormViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel = ViewModelProvider(this)[HabitFormViewModel::class.java]
     }
 
     override fun onCreateView(

@@ -3,16 +3,17 @@ package com.example.newhabit.data.repository
 import android.icu.util.Calendar
 import android.util.Log
 import com.example.newhabit.data.local.database.AppDatabase
+import com.example.newhabit.data.local.database.dao.HabitProgressDao
 import com.example.newhabit.data.local.database.entity.HabitProgressEntity
 import com.example.newhabit.domain.model.HabitProgress
 import com.example.newhabit.domain.repository.HabitProgressRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.UUID
+import javax.inject.Inject
 
-class HabitProgressRepositoryImpl(appDatabase: AppDatabase) : HabitProgressRepository {
-
-    private val dao = appDatabase.progressDao()
+class HabitProgressRepositoryImpl @Inject constructor(private val dao: HabitProgressDao) :
+    HabitProgressRepository {
 
     override suspend fun fetch(habitId: String, completedAt: Long): List<HabitProgress> {
         return dao.fetchProgressByHabit(habitId, completedAt).map { progress ->

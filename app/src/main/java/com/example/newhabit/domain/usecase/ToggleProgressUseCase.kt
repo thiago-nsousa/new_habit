@@ -2,12 +2,13 @@ package com.example.newhabit.domain.usecase
 
 import android.icu.util.Calendar
 import com.example.newhabit.domain.repository.HabitProgressRepository
+import javax.inject.Inject
 
 interface ToggleProgressUseCase {
     suspend operator fun invoke(habitId: String)
 }
 
-class ToggleProgressUseCaseImpl(
+class ToggleProgressUseCaseImpl @Inject constructor(
     private val progressRepository: HabitProgressRepository
 ) : ToggleProgressUseCase {
 
