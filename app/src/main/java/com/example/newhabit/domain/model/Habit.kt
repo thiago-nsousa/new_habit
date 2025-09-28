@@ -5,4 +5,5 @@ data class Habit(
     val title: String,
     val daysOfWeek: List<Int>,
     val isCompleted: Boolean = false,
+    val category: HabitCategory
 )

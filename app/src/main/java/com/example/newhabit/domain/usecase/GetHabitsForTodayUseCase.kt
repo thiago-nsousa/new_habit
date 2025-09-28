@@ -36,7 +36,8 @@ class GetHabitsForTodayUseCaseImpl @Inject constructor(
                     id = habit.id,
                     title = habit.title,
                     daysOfWeek = habit.daysOfWeek,
-                    isCompleted = isCompletedToday
+                    isCompleted = isCompletedToday,
+                    category = habit.category
                 )
             }
     }

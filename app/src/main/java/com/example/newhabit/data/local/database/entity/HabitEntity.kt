@@ -11,5 +11,6 @@ data class HabitEntity(
     @PrimaryKey val uuid: String,
     @ColumnInfo(name = "title") val title: String,
     @TypeConverters(DaysOfWeekConverter::class)
-    @ColumnInfo(name = "daysOfWeek") val daysOfWeek: List<Int>
+    @ColumnInfo(name = "daysOfWeek") val daysOfWeek: List<Int>,
+    @ColumnInfo(name = "category") val category: String,
 )

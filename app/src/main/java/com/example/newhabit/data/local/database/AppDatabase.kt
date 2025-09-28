@@ -11,7 +11,7 @@ import com.example.newhabit.data.local.database.entity.HabitEntity
 import com.example.newhabit.data.local.database.entity.HabitProgressEntity
 import com.example.newhabit.data.local.utils.DaysOfWeekConverter
 
-@Database(entities = [HabitEntity::class, HabitProgressEntity::class], version = 1, exportSchema = false)
+@Database(entities = [HabitEntity::class, HabitProgressEntity::class], version = 4, exportSchema = false)
 @TypeConverters(DaysOfWeekConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
@@ -30,6 +30,7 @@ abstract class AppDatabase : RoomDatabase() {
                         context.applicationContext,
                         AppDatabase::class.java, DATABASE_NAME
                     )
+                        .fallbackToDestructiveMigration()
                         .build()
                 }
             }

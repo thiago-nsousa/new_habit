@@ -1,6 +1,8 @@
 package com.example.newhabit.di
 
 
+import com.example.newhabit.domain.usecase.GetHabitsBacklogUseCase
+import com.example.newhabit.domain.usecase.GetHabitsBacklogUseCaseImpl
 import com.example.newhabit.domain.usecase.GetHabitsForTodayUseCase
 import com.example.newhabit.domain.usecase.GetHabitsForTodayUseCaseImpl
 import com.example.newhabit.domain.usecase.ToggleProgressUseCase
@@ -26,4 +28,10 @@ abstract class UseCaseModule {
     abstract fun providesToggleProgressUseCase(
         impl: ToggleProgressUseCaseImpl
     ): ToggleProgressUseCase
+
+    @Singleton
+    @Binds
+    abstract fun providesGetHabitsBacklogUseCase(
+        impl: GetHabitsBacklogUseCaseImpl
+    ): GetHabitsBacklogUseCase
 }
