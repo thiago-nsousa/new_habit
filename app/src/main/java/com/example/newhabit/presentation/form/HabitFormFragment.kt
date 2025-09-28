@@ -1,16 +1,24 @@
 package com.example.newhabit.presentation.form
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.core.view.WindowCompat
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.newhabit.data.local.database.AppDatabase
-import com.example.newhabit.data.repository.HabitRepositoryImpl
+import com.example.newhabit.R
 import com.example.newhabit.databinding.FragmentHabitFormBinding
+import com.example.newhabit.domain.model.Habit
+import com.example.newhabit.domain.model.HabitCategory
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,7 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * A [Fragment] that displays a list of habits.
  */
 @AndroidEntryPoint
-class HabitFormFragment : Fragment() {
+class HabitFormFragment : DialogFragment() {
 
     private var _binding: FragmentHabitFormBinding? = null
 
@@ -28,7 +36,7 @@ class HabitFormFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setStyle(STYLE_NORMAL, R.style.FullScreenDialogTheme)
         viewModel = ViewModelProvider(this)[HabitFormViewModel::class.java]
     }
 
@@ -37,17 +45,79 @@ class HabitFormFragment : Fragment() {
     ): View {
         _binding = FragmentHabitFormBinding.inflate(inflater, container, false)
         return binding.root
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Save Habit and Navigate Up
+
+        val habitId = arguments?.getString("habitId")
+
+        if (habitId != null) {
+            viewModel.fetchHabitById(habitId)
+            binding.deleteButton.visibility = View.VISIBLE
+            binding.toolbar.title = "Editar Hábito"
+        } else {
+            binding.deleteButton.visibility = View.GONE
+        }
+
+        // Observer UI State for changes.
+        viewModel.uiState.observe(viewLifecycleOwner) {
+            // Submit the new list to the adapter
+            binding.titleTextInput.editText?.setText(it.habit.title)
+            binding.categoryDropdown.setText(it.habit.category.label, false)
+            for (day in it.habit.daysOfWeek) {
+                val chip = binding.daysChipGroup.getChildAt(day - 1) as Chip
+                chip.isChecked = true
+            }
+        }
+
+        val adapter =
+            ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1,
+                HabitCategory.entries.map { it.label }
+            )
+
+        val dropdown = view.findViewById<AutoCompleteTextView>(R.id.categoryDropdown)
+        dropdown.setAdapter(adapter)
+
+        dialog?.window?.let { window ->
+            WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = true
+        }
+
         binding.saveButton.setOnClickListener { onSave() }
+
+        binding.deleteButton.setOnClickListener { onDelete() }
+
+        binding.toolbar.setNavigationOnClickListener {
+            // Volta para a tela anterior
+            findNavController().popBackStack()
+        }
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        parentFragmentManager.setFragmentResult("habit_updated", bundleOf())
+    }
+
+    private fun onDelete() {
+        // Get value from the input to save
+        val habitId = arguments?.getString("habitId") ?: return
+
+        // Use ViewModel to add the new Habit
+        viewModel.deleteHabit()
+
+        Toast.makeText(requireContext(), "Hábito removido com sucesso!", Toast.LENGTH_SHORT).show()
+
+        // Navigate Up in the navigation tree, meaning: goes back
+        findNavController().navigateUp()
     }
 
     private fun onSave() {
+
         // Get value from the input to save
         val habitName = binding.titleTextInput.editText?.text.toString()
+        val category = binding.categoryDropdown.text.toString()
 
         // Get period selected: where 1 is Monday and 7 is Sunday.
         val habitDaysSelected = mutableListOf<Int>()
@@ -57,8 +127,21 @@ class HabitFormFragment : Fragment() {
             habitDaysSelected.add(position + 1)
         }
 
-        // Use ViewModel to add the new Habit
-        viewModel.addHabit(habitName, habitDaysSelected)
+        val habitId = arguments?.getString("habitId")
+
+        if (habitId != null) {
+            viewModel.updateHabit(
+                Habit(
+                id = habitId,
+                title = habitName,
+                daysOfWeek = habitDaysSelected,
+                isCompleted = viewModel.uiState.value?.habit?.isCompleted ?: false,
+                category = HabitCategory.fromLabel(category)
+            ))
+        } else {
+            // Use ViewModel to add the new Habit
+            viewModel.addHabit(habitName, habitDaysSelected, HabitCategory.fromLabel(category))
+        }
 
         // Navigate Up in the navigation tree, meaning: goes back
         findNavController().navigateUp()
