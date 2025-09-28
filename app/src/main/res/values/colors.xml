@@ -9,4 +9,25 @@
     <color name="secondary_700">#FCC13B</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!-- Saúde -->
+    <color name="category_health">#4CAF50</color>        <!-- Verde -->
+    <color name="on_category_health">#FFFFFF</color>     <!-- Texto/ícone sobre verde -->
+
+    <!-- Trabalho -->
+    <color name="category_work">#2196F3</color>          <!-- Azul -->
+    <color name="on_category_work">#FFFFFF</color>       <!-- Texto/ícone sobre azul -->
+
+    <!-- Aprendizado -->
+    <color name="category_learning">#FF9800</color>      <!-- Laranja -->
+    <color name="on_category_learning">#FFFFFF</color>   <!-- Texto/ícone sobre laranja -->
+
+    <!-- Pessoal -->
+    <color name="category_personal">#9C27B0</color>      <!-- Roxo -->
+    <color name="on_category_personal">#FFFFFF</color>   <!-- Texto/ícone sobre roxo -->
+
+    <!-- Outros -->
+    <color name="category_other">#9E9E9E</color>         <!-- Cinza neutro -->
+    <color name="on_category_other">#FFFFFF</color>      <!-- Texto/ícone sobre cinza -->
+
 </resources>
+

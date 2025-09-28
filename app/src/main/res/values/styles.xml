@@ -1,0 +1,92 @@
+<resources>
+    <!-- =========================
+         Main Theme
+         ========================= -->
+    <style name="Theme.App" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Colors -->
+        <item name="colorPrimary">@color/primary_500</item>
+        <item name="colorPrimaryContainer">@color/primary_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/primary_200</item>
+        <item name="colorSecondaryContainer">@color/primary_200</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+        <!-- Surface -->
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/primary_800</item>
+        <item name="colorOutline">@color/primary_400</item>
+
+        <!-- Status bar -->
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <!-- Shapes -->
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
+
+        <!-- FAB -->
+        <item name="floatingActionButtonStyle">@style/Widget.App.FloatingActionButton</item>
+
+        <!-- Bottom Navigation -->
+        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigation</item>
+
+        <!-- Chips -->
+        <item name="chipStyle">@style/Widget.App.Chip</item>
+    </style>
+
+
+    <!-- =========================
+         Floating Action Button
+         ========================= -->
+    <style name="Widget.App.FloatingActionButton" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
+    </style>
+
+    <style name="ThemeOverlay.App.FloatingActionButton" parent="ThemeOverlay.Material3.FloatingActionButton.Primary">
+        <item name="colorPrimaryContainer">@color/primary_700</item>
+        <item name="colorOnPrimaryContainer">@color/primary_200</item>
+
+    </style>
+
+    <!-- =========================
+         Shapes
+         ========================= -->
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+
+    <!-- =========================
+         AppBar and Popup
+         ========================= -->
+    <style name="Theme.App.AppBarOverlay" parent="ThemeOverlay.Material3.Dark"/>
+    <style name="Theme.App.PopupOverlay" parent="ThemeOverlay.Material3.Light"/>
+
+
+    <!-- =========================
+         FullScreenDialog
+         ========================= -->
+    <style name="FullScreenDialogTheme" parent="Theme.App">
+        <item name="android:windowAnimationStyle">@style/DialogSlideAnimation</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryContainer</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <!-- =========================
+         Dialog Animation
+         ========================= -->
+    <style name="DialogSlideAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_down</item>
+    </style>
+
+    <style name="Widget.App.BottomNavigation" parent="Widget.Material3.BottomNavigationView">
+        <item name="colorSurface">@color/primary_200</item>
+        <item name="colorSecondaryContainer">@color/primary_200</item>
+    </style>
+
+    <style name="Widget.App.Chip" parent="Widget.Material3.Chip.Filter">
+        <item name="chipBackgroundColor">@color/chip_color</item>
+    </style>
+
+</resources>
