@@ -56,9 +56,8 @@ class HabitListFragment : Fragment() {
             adapter.submitList(it.habitItemList)
         }
 
-        // Set Navigation Fab
-        binding.fab.setOnClickListener {
-            findNavController().navigate(R.id.action_habitList_to_habitForm)
+        parentFragmentManager.setFragmentResultListener("habit_updated", viewLifecycleOwner) { _, _ ->
+            viewModel.refresh()
         }
     }
 

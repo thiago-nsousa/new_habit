@@ -1,5 +1,6 @@
 package com.example.newhabit.presentation.habitList
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -36,11 +37,27 @@ class HabitListAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(habit: Habit) {
-            binding.titleTextView.text = habit.title
-            binding.completeCheckBox.isChecked = habit.isCompleted
+            val textView = binding.titleTextView
+            val checkBox = binding.completeCheckBox
 
-            binding.completeCheckBox.setOnClickListener {
+            textView.text = habit.title
+            checkBox.isChecked = habit.isCompleted
+            setStrikeText(habit.isCompleted)
+
+
+            checkBox.setOnClickListener {
+                val isChecked = checkBox.isChecked
+                setStrikeText(isChecked)
                 viewModel.toggleHabitCompleted(habit.id)
+            }
+        }
+
+        fun setStrikeText(isChecked: Boolean) {
+            val textView = binding.titleTextView
+            if (isChecked) {
+                textView.paintFlags = textView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            } else {
+                textView.paintFlags = textView.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
             }
         }
     }
