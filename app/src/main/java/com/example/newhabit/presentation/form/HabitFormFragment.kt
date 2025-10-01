@@ -12,7 +12,6 @@ import androidx.core.os.bundleOf
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.newhabit.R
@@ -65,11 +64,13 @@ class HabitFormFragment : DialogFragment() {
         // Observer UI State for changes.
         viewModel.uiState.observe(viewLifecycleOwner) {
             // Submit the new list to the adapter
-            binding.titleTextInput.editText?.setText(it.habit.title)
-            binding.categoryDropdown.setText(it.habit.category.label, false)
-            for (day in it.habit.daysOfWeek) {
-                val chip = binding.daysChipGroup.getChildAt(day - 1) as Chip
-                chip.isChecked = true
+            if (habitId != null){
+                binding.titleTextInput.editText?.setText(it.habit.title)
+                binding.categoryDropdown.setText(it.habit.category.label, false)
+                for (day in it.habit.daysOfWeek) {
+                    val chip = binding.daysChipGroup.getChildAt(day - 1) as Chip
+                    chip.isChecked = true
+                }
             }
         }
 
@@ -85,7 +86,11 @@ class HabitFormFragment : DialogFragment() {
             WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = true
         }
 
-        binding.saveButton.setOnClickListener { onSave() }
+        binding.saveButton.setOnClickListener {
+            if (validateForm()) {
+                onSave()
+            }
+        }
 
         binding.deleteButton.setOnClickListener { onDelete() }
 
@@ -129,6 +134,7 @@ class HabitFormFragment : DialogFragment() {
 
         val habitId = arguments?.getString("habitId")
 
+
         if (habitId != null) {
             viewModel.updateHabit(
                 Habit(
@@ -146,6 +152,42 @@ class HabitFormFragment : DialogFragment() {
         // Navigate Up in the navigation tree, meaning: goes back
         findNavController().navigateUp()
     }
+
+    private fun validateForm(): Boolean {
+        var isValid = true
+
+        // TexInputTitle
+        val title = binding.titleTextInput.editText?.text?.toString()?.trim()
+        if (title.isNullOrEmpty()) {
+            binding.titleTextInput.error = "Informe o título do hábito"
+            isValid = false
+        } else {
+            binding.titleTextInput.error = null
+        }
+
+        // Dropdown Category
+        val category = binding.categoryDropdown.text?.toString()?.trim()
+        if (category.isNullOrEmpty()) {
+            binding.categoryDropdownLayout.error = "Selecione uma categoria"
+            isValid = false
+        } else {
+            binding.categoryDropdownLayout.error = null
+        }
+
+        // Chips Days of Week
+        val selectedDays = binding.daysChipGroup.checkedChipIds
+        if (selectedDays.isEmpty()) {
+            binding.daysErrorTextView.visibility = View.VISIBLE
+            binding.daysErrorTextView.text = "Selecione pelo menos um dia"
+            isValid = false
+
+        } else {
+            binding.daysErrorTextView.visibility = View.GONE
+        }
+
+        return isValid
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

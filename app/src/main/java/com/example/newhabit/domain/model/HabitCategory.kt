@@ -25,6 +25,14 @@ enum class HabitCategory(val label: String) {
         OTHER -> R.color.on_category_other
     }
 
+    fun getIconRes() = when (this) {
+        HEALTH -> R.drawable.ic_health
+        WORK -> R.drawable.ic_work
+        LEARNING -> R.drawable.ic_learning
+        PERSONAL -> R.drawable.ic_person
+        OTHER -> R.drawable.ic_other
+    }
+
     companion object {
         fun fromLabel(label: String): HabitCategory =
             values().firstOrNull { it.label == label } ?: OTHER

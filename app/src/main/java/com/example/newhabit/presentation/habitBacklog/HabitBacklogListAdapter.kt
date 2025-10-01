@@ -52,6 +52,7 @@ class HabitBacklogListAdapter(
             chip.chipBackgroundColor = ColorStateList.valueOf(bgColor)
             chip.setTextColor(textColor)
             chip.setChipIconTintResource(habit.category.getOnColorRes())
+            chip.chipIcon = ContextCompat.getDrawable(context, habit.category.getIconRes())
 
             binding.root.setOnClickListener {
                 onItemClick(habit)
