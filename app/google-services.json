@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "685190007567",
+    "project_id": "app-new-habit",
+    "storage_bucket": "app-new-habit.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685190007567:android:1297e28af3a685e0ae8c7a",
+        "android_client_info": {
+          "package_name": "com.example.newhabit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "685190007567-to3r1jh55mcrppfk61rm06im0gv7cl7q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.newhabit",
+            "certificate_hash": "d4932fd418a752b4d7ed543a2ab46fa4540a3f0e"
+          }
+        },
+        {
+          "client_id": "685190007567-tuoeb477coarh2svlletaqoip0o6la7l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdLWE1LjXlxHC--ghtFgGk-N19fuJ4SU4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "685190007567-tuoeb477coarh2svlletaqoip0o6la7l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
