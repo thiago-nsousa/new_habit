@@ -59,7 +59,7 @@
     <!-- =========================
          AppBar and Popup
          ========================= -->
-    <style name="Theme.App.AppBarOverlay" parent="ThemeOverlay.Material3.Dark"/>
+    <style name="Theme.App.AppBarOverlay" parent="ThemeOverlay.Material3.Light"/>
     <style name="Theme.App.PopupOverlay" parent="ThemeOverlay.Material3.Light"/>
 
 

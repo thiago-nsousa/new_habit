@@ -8,7 +8,9 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.preference.PreferenceDataStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -18,6 +20,16 @@ class SettingsDataStore(context: Context) : PreferenceDataStore() {
 
     private val dataStore = context.dataStore
     private val scope = CoroutineScope(Dispatchers.IO)
+
+    companion object {
+        val THEME_KEY = stringPreferencesKey("theme_preference")
+    }
+
+    // Expõe um Flow que emite o valor do tema toda vez que ele muda
+    val themeFlow: Flow<String> = context.dataStore.data
+        .map { preferences ->
+            preferences[THEME_KEY] ?: "system"
+        }
 
     override fun putString(key: String?, value: String?) {
         scope.launch {

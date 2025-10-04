@@ -27,7 +27,9 @@
 
     <!-- Outros -->
     <color name="category_other">#9E9E9E</color>         <!-- Cinza neutro -->
-    <color name="on_category_other">#FFFFFF</color>      <!-- Texto/ícone sobre cinza -->
+    <color name="on_category_other">#FFFFFF</color>
+
+    <color name="error_color">#FFFFFF</color>  <!-- Texto/ícone sobre cinza -->
 
 </resources>
 

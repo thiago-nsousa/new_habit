@@ -39,7 +39,7 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.newhabit.SettingsFragment"
-        android:label="SettingsFragment" />
+        android:label="@string/pref_title" />
 
     <fragment
         android:id="@+id/habitBacklogListFragment"
