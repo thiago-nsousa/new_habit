@@ -2,7 +2,6 @@ package com.example.newhabit.presentation.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.newhabit.data.repository.AuthRepositoryImpl
 import com.example.newhabit.domain.repository.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,11 +32,13 @@ class AuthViewModel @Inject constructor(
                 return@launch
             }
             _authState.value = AuthState.Loading
-            try {
-                authRepository.signInWithEmailAndPassword(email, password)
+
+            val result = authRepository.signInWithEmailAndPassword(email, password)
+
+            result.onSuccess {
                 _authState.value = AuthState.AuthSuccess
-            } catch (e: Exception) {
-                _authState.value = AuthState.Error(e.message ?: "Ocorreu um erro desconhecido.")
+            }.onFailure {  error ->
+                _authState.value = AuthState.Error("Falha no login: ${error.message}")
             }
         }
     }
@@ -45,11 +46,12 @@ class AuthViewModel @Inject constructor(
     fun signInWithGoogle(idToken: String) {
         viewModelScope.launch {
             _authState.value = AuthState.Loading
-            try {
-                authRepository.signInWithGoogle(idToken)
+            val result = authRepository.signInWithGoogle(idToken)
+
+            result.onSuccess {
                 _authState.value = AuthState.AuthSuccess
-            } catch (e: Exception) {
-                _authState.value = AuthState.Error(e.message ?: "Ocorreu um erro ao logar com Google.")
+            }.onFailure { error ->
+                _authState.value = AuthState.Error("Falha no login com Google: ${error.message}")
             }
         }
     }
@@ -65,11 +67,12 @@ class AuthViewModel @Inject constructor(
                 return@launch
             }
             _authState.value = AuthState.Loading
-            try {
-                authRepository.createUserWithEmailAndPassword(email, password)
+            val result = authRepository.createUserWithEmailAndPassword(email, password)
+
+            result.onSuccess {
                 _authState.value = AuthState.AuthSuccess
-            } catch (e: Exception) {
-                _authState.value = AuthState.Error(e.message ?: "Ocorreu um erro desconhecido.")
+            }.onFailure { error ->
+                _authState.value = AuthState.Error("Falha no registro: ${error.message}")
             }
         }
     }
@@ -81,11 +84,12 @@ class AuthViewModel @Inject constructor(
                 return@launch
             }
             _authState.value = AuthState.Loading
-            try {
-                authRepository.sendPasswordResetEmail(email)
+            val result = authRepository.sendPasswordResetEmail(email)
+
+            result.onSuccess {
                 _authState.value = AuthState.PasswordResetEmailSent
-            } catch (e: Exception) {
-                _authState.value = AuthState.Error(e.message ?: "Ocorreu um erro desconhecido.")
+            }.onFailure { error ->
+                _authState.value = AuthState.Error("Falha ao enviar e-mail de redefinição: ${error.message}")
             }
         }
     }
