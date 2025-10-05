@@ -1,10 +1,15 @@
 package com.example.newhabit.data.notification
 
 import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
 class HabitMessagingService : FirebaseMessagingService() {
+
+    private val TAG = "HabitMessagingService"
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
@@ -42,6 +47,27 @@ class HabitMessagingService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         super.onNewToken(token)
         Log.d("HabitMessagingService", "FCM Token: $token")
-        // Aqui você enviaria o token para o seu servidor, se necessário
+        sendTokenToFirestore(token)
     }
+
+    private fun sendTokenToFirestore(token: String?) {
+        if (token == null) return
+
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        if (userId == null) {
+            Log.d(TAG, "Utilizador não autenticado, não é possível guardar o token")
+            return
+        }
+
+        // Guardar o token no caminho: /users/{userId}/tokens/{token}
+        // Usar o próprio token como ID do documento para evitar duplicação.
+        val tokenInfo = mapOf("createdAt" to FieldValue.serverTimestamp())
+        FirebaseFirestore.getInstance()
+            .collection("users").document(userId)
+            .collection("tokens").document(token)
+            .set(tokenInfo)
+            .addOnSuccessListener { Log.d(TAG, "Token FCM guardado com sucesso no Firestore") }
+            .addOnFailureListener { e -> Log.d(TAG, "Erro ao guardar o token FCM: ${e}") }
+    }
+
 }

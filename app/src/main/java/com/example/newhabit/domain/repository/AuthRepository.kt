@@ -9,5 +9,6 @@ interface AuthRepository {
     suspend fun sendPasswordResetEmail(email: String): Result<Unit>
     fun getCurrentUser(): User?
     suspend fun logout()
+    suspend fun saveCurrentUserFcmToken(): Result<Unit>
 }
 

@@ -9,7 +9,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.tasks.await
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 import javax.inject.Inject
 
 class HabitProgressRepositoryImpl @Inject constructor(
@@ -44,13 +46,15 @@ class HabitProgressRepositoryImpl @Inject constructor(
     override suspend fun add(habitId: String) {
         val today = android.icu.util.Calendar.getInstance()
         val dayOfWeek = today.get(android.icu.util.Calendar.DAY_OF_WEEK)
+        val dateKey = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(today.time)
 
         val documentRef = progressCollection(habitId).document()
         val progress = HabitProgressDTO(
             id = documentRef.id,
             habitId = habitId,
             completedAt = today.timeInMillis,
-            dayOfWeek = dayOfWeek
+            dayOfWeek = dayOfWeek,
+            dateKey = dateKey
         )
         documentRef.set(progress).await()
     }

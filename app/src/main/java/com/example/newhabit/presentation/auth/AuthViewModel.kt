@@ -37,6 +37,7 @@ class AuthViewModel @Inject constructor(
 
             result.onSuccess {
                 _authState.value = AuthState.AuthSuccess
+                saveCurrentUserFcmToken()
             }.onFailure {  error ->
                 _authState.value = AuthState.Error("Falha no login: ${error.message}")
             }
@@ -50,6 +51,7 @@ class AuthViewModel @Inject constructor(
 
             result.onSuccess {
                 _authState.value = AuthState.AuthSuccess
+                saveCurrentUserFcmToken()
             }.onFailure { error ->
                 _authState.value = AuthState.Error("Falha no login com Google: ${error.message}")
             }
@@ -71,6 +73,7 @@ class AuthViewModel @Inject constructor(
 
             result.onSuccess {
                 _authState.value = AuthState.AuthSuccess
+                saveCurrentUserFcmToken()
             }.onFailure { error ->
                 _authState.value = AuthState.Error("Falha no registro: ${error.message}")
             }
@@ -90,6 +93,16 @@ class AuthViewModel @Inject constructor(
                 _authState.value = AuthState.PasswordResetEmailSent
             }.onFailure { error ->
                 _authState.value = AuthState.Error("Falha ao enviar e-mail de redefinição: ${error.message}")
+            }
+        }
+    }
+
+    fun saveCurrentUserFcmToken() {
+        viewModelScope.launch {
+            val result = authRepository.saveCurrentUserFcmToken()
+            result.onFailure { error ->
+                _authState.value = AuthState.Error("Falha ao salvar token FCM: ${error.message}")
+
             }
         }
     }

@@ -8,7 +8,8 @@ data class HabitProgressDTO(
     val id: String = "",
     val habitId: String = "",
     val dayOfWeek: Int = 0,
-    val completedAt: Long? = null
+    val completedAt: Long? = null,
+    val dateKey : String = "",
 )
 
 fun HabitProgressDTO.toDomain() = HabitProgress(
