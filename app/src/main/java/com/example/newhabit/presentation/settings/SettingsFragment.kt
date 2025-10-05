@@ -1,4 +1,4 @@
-package com.example.newhabit
+package com.example.newhabit.presentation.settings
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,7 @@ import com.example.newhabit.data.local.datastore.SettingsDataStore
 import com.example.newhabit.presentation.auth.AuthActivity
 import com.google.firebase.auth.FirebaseAuth
 import androidx.preference.ListPreference
+import com.example.newhabit.R
 import kotlinx.coroutines.launch
 
 class SettingsFragment : PreferenceFragmentCompat() {
