@@ -27,9 +27,9 @@ class HabitProgressRepositoryImpl @Inject constructor(private val dao: HabitProg
         }
     }
 
-    override suspend fun delete(id: String) {
-        Log.d(LOG_TAG, "Losing progress on habitId: $id")
-        dao.delete(id)
+    override suspend fun delete(habitId: String, progressId: String) {
+        Log.d(LOG_TAG, "Losing progress on habitId: $habitId")
+        dao.delete(progressId)
     }
 
     override suspend fun add(habitId: String) {

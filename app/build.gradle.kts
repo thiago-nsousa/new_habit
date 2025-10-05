@@ -83,7 +83,5 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:21.2.0")
     // A linha abaixo não precisa de número de versão por causa do BOM.
     implementation("com.google.firebase:firebase-auth-ktx")
-
-
-
+    implementation("com.google.firebase:firebase-firestore-ktx")
 }

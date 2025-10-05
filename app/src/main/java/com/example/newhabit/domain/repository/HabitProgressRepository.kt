@@ -14,7 +14,7 @@ interface HabitProgressRepository {
     /**
      * @param id ID of the progress
      */
-    suspend fun delete(id: String)
+    suspend fun delete(habitId: String, progressId: String)
 
     /**
      * @param habitId ID of the specific Habit that we make progress

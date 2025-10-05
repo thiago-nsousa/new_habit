@@ -16,7 +16,7 @@ class ToggleProgressUseCaseImpl @Inject constructor(
         val today = Calendar.getInstance()
         val progress = progressRepository.fetch(habitId = habitId, today.timeInMillis)
         if (progress.isNotEmpty()) {
-            progressRepository.delete(progress.first().id)
+            progressRepository.delete(progress.first().habitId, progress.first().id)
         } else {
             progressRepository.add(habitId = habitId)
         }

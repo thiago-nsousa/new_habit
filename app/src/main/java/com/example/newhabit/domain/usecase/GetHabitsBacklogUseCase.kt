@@ -2,7 +2,6 @@ package com.example.newhabit.domain.usecase
 
 import android.util.Log
 import com.example.newhabit.domain.model.Habit
-import com.example.newhabit.domain.model.HabitCategory
 import com.example.newhabit.domain.repository.HabitRepository
 import javax.inject.Inject
 

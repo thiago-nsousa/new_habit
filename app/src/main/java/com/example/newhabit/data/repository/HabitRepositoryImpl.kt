@@ -24,7 +24,7 @@ class HabitRepositoryImpl @Inject constructor(private val dao: HabitDao) : Habit
         }
     }
 
-    override suspend fun fetch(dayOfWeek: Int): List<Habit> {
+    override suspend fun fetchByDayOfWeek(dayOfWeek: Int): List<Habit> {
         Log.d(TAG, "Fetching habits for day of week $dayOfWeek")
         return dao.fetchByDayOfWeek(dayOfWeek).map { habit ->
             Habit(

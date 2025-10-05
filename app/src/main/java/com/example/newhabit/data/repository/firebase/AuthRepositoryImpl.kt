@@ -1,4 +1,4 @@
-package com.example.newhabit.data.repository
+package com.example.newhabit.data.repository.firebase
 
 import com.example.newhabit.domain.model.User
 import com.example.newhabit.domain.repository.AuthRepository
@@ -64,4 +64,3 @@ class AuthRepositoryImpl @Inject constructor(
         firebaseAuth.signOut()
     }
 }
-

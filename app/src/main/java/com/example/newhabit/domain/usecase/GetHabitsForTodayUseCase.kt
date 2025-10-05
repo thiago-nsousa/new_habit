@@ -23,7 +23,7 @@ class GetHabitsForTodayUseCaseImpl @Inject constructor(
         Log.d(TAG, "Fetching all habits for $dayOfWeek")
 
         return habitRepository
-            .fetch(dayOfWeek)
+            .fetchByDayOfWeek(dayOfWeek)
             .map { habit ->
                 Log.d(TAG, "Check we have already work on ${habit.id} at ${today.timeInMillis}")
 

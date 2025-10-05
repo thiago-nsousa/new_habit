@@ -1,8 +1,8 @@
 package com.example.newhabit.di
 
-import com.example.newhabit.data.repository.AuthRepositoryImpl
-import com.example.newhabit.data.repository.HabitProgressRepositoryImpl
-import com.example.newhabit.data.repository.HabitRepositoryImpl
+import com.example.newhabit.data.repository.firebase.AuthRepositoryImpl
+import com.example.newhabit.data.repository.firebase.HabitProgressRepositoryImpl
+import com.example.newhabit.data.repository.firebase.HabitRepositoryImpl
 import com.example.newhabit.domain.repository.AuthRepository
 import com.example.newhabit.domain.repository.HabitProgressRepository
 import com.example.newhabit.domain.repository.HabitRepository
