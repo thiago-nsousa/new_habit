@@ -1,6 +1,8 @@
 # Habits App - Android
 Esta é uma aplicação Android completa para monitorização de hábitos, desenvolvida com as tecnologias e arquiteturas mais modernas recomendadas pelo Google. O projeto serve como um exemplo robusto de como construir uma aplicação escalável, reativa e com funcionalidades de backend usando o ecossistema Firebase.
 
+<img width="300" alt="Screenshot_20251005_190351" src="https://github.com/user-attachments/assets/051a6285-ca4e-4380-9310-2d2505f815b3" />
+
 <img width="300" alt="Screenshot_20250928_191555" src="https://github.com/user-attachments/assets/3040c5bd-7d1b-4b31-87df-2c992b3b5fbc" />
 
 <img width="300" alt="Screenshot_20250928_191537" src="https://github.com/user-attachments/assets/5e0feff7-29ad-496b-b345-2c29ab170f1c" />
