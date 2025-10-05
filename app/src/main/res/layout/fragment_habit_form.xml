@@ -135,6 +135,53 @@
                 android:layout_marginStart="16dp"
                 android:visibility="gone"/>
 
+            <!-- ========================= -->
+            <!-- Seção de Lembrete         -->
+            <!-- ========================= -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Lembrete"
+                android:textSize="20sp" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
+
+            <!-- Switch para ativar/desativar o lembrete -->
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/reminderSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:checked="false"
+                android:text="Ativar lembrete" />
+
+            <!-- Campo para mostrar e selecionar a hora do lembrete -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/timePickerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:hint="Horário do lembrete"
+                android:visibility="gone"
+                app:startIconDrawable="@drawable/ic_alarm"
+                tools:visibility="visible">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/timePickerEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:inputType="none" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
         </LinearLayout>
     </ScrollView>
 

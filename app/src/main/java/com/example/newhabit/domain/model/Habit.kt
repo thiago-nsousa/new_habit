@@ -5,5 +5,8 @@ data class Habit(
     val title: String,
     val daysOfWeek: List<Int>,
     val isCompleted: Boolean = false,
-    val category: HabitCategory
+    val category: HabitCategory,
+    val reminderEnabled: Boolean = false,
+    val reminderHour: Int = 0,
+    val reminderMinute: Int = 0
 )

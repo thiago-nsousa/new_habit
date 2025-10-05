@@ -39,16 +39,21 @@ class HabitRepositoryImpl @Inject constructor(
             ?: throw NoSuchElementException("Habit with id $habitId not found")
     }
 
-    override suspend fun add(title: String, daysOfWeek: List<Int>, category: HabitCategory) {
+    override suspend fun add(title: String, daysOfWeek: List<Int>, category: HabitCategory, reminderEnabled: Boolean, reminderHour: Int, reminderMinute: Int): String? {
         val documentRef = habitsCollection.document()
         val newHabit = Habit(
             id = documentRef.id,
             title = title,
             daysOfWeek = daysOfWeek,
             isCompleted = false,
-            category = category
+            category = category,
+            reminderEnabled = reminderEnabled,
+            reminderHour = reminderHour,
+            reminderMinute = reminderMinute
         )
         documentRef.set(newHabit.toDTO(userId)).await()
+
+        return documentRef.id
     }
 
     override suspend fun delete(habit: Habit) {

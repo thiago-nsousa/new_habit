@@ -10,7 +10,7 @@ interface HabitRepository {
 
     suspend fun fetchById(habitId: String): Habit
 
-    suspend fun add(title: String, daysOfWeek: List<Int>, category: HabitCategory)
+    suspend fun add(title: String, daysOfWeek: List<Int>, category: HabitCategory, reminderEnabled: Boolean, reminderHour: Int, reminderMinute: Int): String?
 
     suspend fun delete(habit: Habit)
 

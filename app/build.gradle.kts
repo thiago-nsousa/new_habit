@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.androidx.benchmark.common)
     implementation(libs.androidx.preference)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.work.runtime.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -84,4 +85,10 @@ dependencies {
     // A linha abaixo não precisa de número de versão por causa do BOM.
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
+    // Firebase Cloud Messaging para notificações remotas
+    implementation("com.google.firebase:firebase-messaging-ktx")
+
+    // WorkManager para agendamento de tarefas e notificações locais
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
+
 }

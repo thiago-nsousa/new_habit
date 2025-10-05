@@ -1,10 +1,16 @@
 package com.example.newhabit
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -14,6 +20,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.newhabit.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,6 +31,20 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavigation: BottomNavigationView
     private lateinit var floatingButton: FloatingActionButton
     private lateinit var navController: NavController
+
+    // Declarar o launcher para o pedido de permissão
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+            if (!isGranted) {
+                // Opcional: Mostrar uma mensagem a explicar por que a permissão é importante
+                // se o utilizador a negou.
+                Snackbar.make(
+                    findViewById(android.R.id.content),
+                    "As notificações são importantes para os lembretes. Pode ativá-las nas configurações.",
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +60,17 @@ class MainActivity : AppCompatActivity() {
         setupBottomNavigation()
         setupFloatingButton()
         setupDestinationListener()
+        askNotificationPermission()
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.d("FCM", "Falha ao obter o token FCM ${task.exception}")
+                return@addOnCompleteListener
+            }
+            val token = task.result
+            Log.d("FCM", "Token FCM do Dispositivo: ${token}", )
+        }
+
     }
 
     private fun setupFloatingButton() {
@@ -105,6 +138,19 @@ class MainActivity : AppCompatActivity() {
                         floatingButton.visibility = View.GONE
                     }
                 }
+        }
+    }
+
+    private fun askNotificationPermission() {
+        // 3. A verificação só é necessária para o Android 13 (API 33) ou superior
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // 4. Verificar se a permissão JÁ FOI CONCEDIDA
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) !=
+                PackageManager.PERMISSION_GRANTED
+            ) {
+                // 5. Se não foi concedida, lançar o pedido de permissão
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
         }
     }
 }

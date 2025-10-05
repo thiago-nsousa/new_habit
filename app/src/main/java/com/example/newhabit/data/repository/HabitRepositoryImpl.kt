@@ -48,15 +48,17 @@ class HabitRepositoryImpl @Inject constructor(private val dao: HabitDao) : Habit
         )
     }
 
-    override suspend fun add(title: String, daysOfWeek: List<Int>, category: HabitCategory) {
+    override suspend fun add(title: String, daysOfWeek: List<Int>, category: HabitCategory, reminderEnabled: Boolean, reminderHour: Int, reminderMinute: Int): String? {
         Log.d(TAG, "Adding new Habit $title for days $daysOfWeek")
         val habit = HabitEntity(
             uuid = UUID.randomUUID().toString(),
             title = title,
             daysOfWeek = daysOfWeek,
-            category = category.name
+            category = category.name,
         )
         dao.insert(habit)
+
+        return habit.uuid
     }
 
     override suspend fun delete(habit: Habit) {

@@ -10,16 +10,22 @@ data class HabitDTO(
     val title: String = "",
     val daysOfWeek: List<Int> = emptyList(),
     val category: String = "",
+    val reminderEnabled: Boolean = false,
+    val reminderHour: Int = 0,
+    val reminderMinute: Int = 0,
     @ServerTimestamp
     val createdAt: Date? = null,
-    val userId: String? = null
+    val userId: String? = null,
 )
 
 fun HabitDTO.toDomain() = Habit(
     id = id,
     title = title,
     daysOfWeek = daysOfWeek,
-    category = category.let { HabitCategory.valueOf(it) }
+    category = category.let { HabitCategory.valueOf(it) },
+    reminderEnabled = reminderEnabled,
+    reminderHour = reminderHour,
+    reminderMinute = reminderMinute
 )
 
 fun Habit.toDTO(userId: String): HabitDTO {
@@ -28,6 +34,9 @@ fun Habit.toDTO(userId: String): HabitDTO {
         title = this.title,
         daysOfWeek = this.daysOfWeek,
         category = this.category.name,
-        userId = userId
+        userId = userId,
+        reminderEnabled = this.reminderEnabled,
+        reminderHour = this.reminderHour,
+        reminderMinute = this.reminderMinute
     )
 }

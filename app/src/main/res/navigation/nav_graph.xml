@@ -38,7 +38,7 @@
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.newhabit.SettingsFragment"
+        android:name="com.example.newhabit.presentation.settings.SettingsFragment"
         android:label="@string/pref_title" />
 
     <fragment

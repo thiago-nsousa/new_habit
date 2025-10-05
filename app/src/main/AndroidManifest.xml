@@ -2,6 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- =================================================================== -->
+    <!-- PERMISSÃO OBRIGATÓRIA (Android 13+)                                 -->
+    <!-- =================================================================== -->
+    <!-- Sem esta permissão, o seu app não poderá mostrar notificações       -->
+    <!-- no Android 13 (API 33) e superior. Você precisará de pedir           -->
+    <!-- esta permissão ao utilizador em tempo de execução.                  -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -24,6 +32,33 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
+
+        <!-- =================================================================== -->
+        <!-- SERVIÇO DO FIREBASE CLOUD MESSAGING (FCM)                           -->
+        <!-- =================================================================== -->
+        <!-- Esta declaração regista o seu HabitMessagingService para que      -->
+        <!-- o sistema Android saiba que ele pode receber mensagens do FCM.    -->
+        <service
+            android:name=".data.notification.HabitMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+
+        <!-- =================================================================== -->
+        <!-- (Opcional) ÍCONE E COR PADRÃO PARA NOTIFICAÇÕES                     -->
+        <!-- =================================================================== -->
+        <!-- Define um ícone e uma cor padrão que o Firebase usará para as       -->
+        <!-- notificações que são exibidas automaticamente quando o app está   -->
+        <!-- em segundo plano.                                                 -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notification_icon" /> <!-- Crie este ícone na pasta res/drawable -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/primary_500" /> <!-- Use uma cor do seu colors.xml -->
     </application>
 
 </manifest>
